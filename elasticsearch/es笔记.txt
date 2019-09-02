@@ -1,0 +1,18 @@
+# 修改es查询数据量限制
+curl -XPUT http://10.45.157.120:9200/_settings -d '{"index":{"max_result_window":100000000}}'
+
+# 创建索引（索引名必须小写）
+curl -XPUT http://10.45.157.116:9200/index_name
+# 创建索引并设置分片
+curl -XPUT http://10.45.157.116:9200/index_name -d '{"settings":{"number_of_shards":1,"number_of_replicas":0}}'
+# 删除索引
+curl -XDELETE http://10.45.157.112:9200/person_list_data_3000w-*
+# 查询模板(表结构)
+curl -XGET http://10.45.157.112:9200/_template/template_fss_person_list?pretty
+# 上传模板(表结构)
+curl -XPUT http://10.45.157.112:9200/_template/template_fss_person_list?pretty -d '{}'
+# 上传es插件
+./elasticsearch-plugin install file:///home/feature-comp.zip
+./elasticsearch-plugin install file:///home/face-retrieval-plugin-1.20.001-SNAPSHOT.zip
+# 搜索模板
+curl -XGET http://10.45.157.112:9200/person_list_data_3000w-*/_search/template -H 'Content-Type: application/json' -d ''
