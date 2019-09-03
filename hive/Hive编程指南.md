@@ -108,6 +108,7 @@ hadoop必须去掉，使用dfs不能使用fs
     show databases; --展示所有数据库
     show databases like 'cor*'; --展示正则匹配的数据库
     set hive.cli.print.current.db=true; --显示当前所在的数据库名
+    -- database 可以换成 schema
 
 **hive的表**
 
