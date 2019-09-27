@@ -2,7 +2,6 @@ github.com/alibaba
 github.com/apache
 github.com/oracle
 github.com/elastic
-github.com/mobz
-
-github.com/fuqiuai
 github.com/scikit-learn
+github.com/mobz
+github.com/fuqiuai
