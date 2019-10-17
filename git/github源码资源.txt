@@ -5,3 +5,4 @@ github.com/elastic
 github.com/scikit-learn
 github.com/mobz
 github.com/fuqiuai
+github.com/yahoo
