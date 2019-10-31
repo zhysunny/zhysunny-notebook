@@ -1,8 +1,9 @@
-github.com/alibaba
-github.com/apache
-github.com/oracle
-github.com/elastic
-github.com/scikit-learn
-github.com/mobz
-github.com/fuqiuai
-github.com/yahoo
+alibaba
+apache
+oracle
+elastic
+scikit-learn
+mobz
+fuqiuai
+yahoo
+stanfordnlp
