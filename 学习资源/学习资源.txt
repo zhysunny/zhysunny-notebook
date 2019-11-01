@@ -6,3 +6,6 @@ https://www.ibooker.org.cn/docs/
 http://www.atguigu.com/download.shtml
 计算机免费电子书下载
 https://www.jb51.net/books/
+
+https://nlp.stanford.edu/software/stanford-chinese-corenlp-2016-10-31-models.jar
+https://nlp.stanford.edu/software/stanford-english-corenlp-2016-10-31-models.jar
