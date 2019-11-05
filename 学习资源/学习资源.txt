@@ -10,3 +10,6 @@ https://www.jb51.net/books/
 https://nlp.stanford.edu/software/stanford-chinese-corenlp-2016-10-31-models.jar
 https://nlp.stanford.edu/software/stanford-english-corenlp-2016-10-31-models.jar
 https://nlp.stanford.edu/software/stanford-corenlp-full-2016-10-31.zip
+https://www.ml.cmu.edu/
+https://www.cs.cmu.edu/
+http://norvig.com/ngrams/
