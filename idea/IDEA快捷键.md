@@ -22,3 +22,23 @@
 以方法为单位跳动：Alt +↑↓ 注：此操作会忽略成员变量(eclipse Ctrl+Shift +↑↓)
 文件头 ：Ctrl+Home
 文件尾 ：Ctrl+End
+
+* Ctrl+W: 根据你按的次数来智能的扩大选中范围
+    * idea Ctrl+W
+    * eclipse Alt+Shift+↑↓
+* 由接口进入实现类 ： 
+    * idea 光标在接口上时按Ctrl+Alt+B
+    * eclipse 光标在接口上时按Ctrl+Alt+B
+* 由实现类进入接口 ： 
+    * idea Ctrl+U
+    * eclipse Ctrl+Alt+M(手动设置)
+* 如果想查看该文件在project中的位置
+    * idea Alt+F1 =>Project View =>Prject 简化的操作是Alt+1
+    * eclipse Alt+F1 =>Project View =>Prject 简化的操作是Alt+1
+* 回到上一次编辑的地方 ： 
+    * idea Ctrl+Shift+backspace
+    * eclipse Ctrl+Q
+* 快速复制一行 ： 
+    * idea 无
+    * eclipse Ctrl+Alt+↓
+* ".for"、".null"、".nn"、".if"、".sout"
