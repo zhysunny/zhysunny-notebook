@@ -28,6 +28,13 @@
 
 * hive join操作的优化
 * hive的函数
-* hive udf
+
+
+    显示hive下内置所有函数
+    show functions;
+    显示 add_months 函数用法
+    desc function extended add_months;
+        
+* hive UDF、UDTF、UDAF
 * 数仓血缘分析
 * 底层实现原理
