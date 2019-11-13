@@ -8,6 +8,7 @@ fuqiuai
 yahoo
 stanfordnlp
 deeplearning4j
+netty
 
 web管理后台框架
 https://github.com/almasaeed2010/AdminLTE 基于 Bootstrap 3.x 的免费的后台 UI 框架。
