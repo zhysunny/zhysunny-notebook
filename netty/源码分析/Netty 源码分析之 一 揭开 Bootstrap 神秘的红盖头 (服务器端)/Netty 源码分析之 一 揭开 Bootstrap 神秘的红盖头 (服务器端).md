@@ -260,11 +260,11 @@ b.group(bossGroup, workerGroup)
  .handler(new LoggingHandler(LogLevel.INFO))
 ```
 那么这个时候, pipeline 中的 handler 情况如下:
-![Alt text](./1477377831087.png)
+![Alt text](1477377831087.png)
 
 根据我们原来分析客户端的经验, 我们指定, 当 channel 绑定到 eventLoop 后(在这里是 NioServerSocketChannel 绑定到 bossGroup)中时, 会在 pipeline 中发出 **fireChannelRegistered** 事件, 接着就会触发 ChannelInitializer.initChannel 方法的调用.
 因此在绑定完成后, 此时的 pipeline 的内如如下:
-![Alt text](./1477378182291.png)
+![Alt text](1477378182291.png)
 
 前面我们在分析 bossGroup 和 workerGroup 时, 已经知道了在 ServerBootstrapAcceptor.channelRead 中会为新建的 Channel 设置 handler 并注册到一个 eventLoop 中, 即:
 ```

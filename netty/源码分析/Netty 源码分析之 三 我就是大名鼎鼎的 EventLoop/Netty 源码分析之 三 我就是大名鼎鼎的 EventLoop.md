@@ -96,7 +96,7 @@ b.group(bossGroup, workerGroup)
 
 
 ### NioEventLoopGroup 类层次结构
-![Alt text](./NioEventLoopGroup.png)
+![Alt text](NioEventLoopGroup.png)
 
 ### NioEventLoopGroup 实例化过程
 在前面 [Netty 源码分析之 一 揭开 Bootstrap 神秘的红盖头 (客户端)](https://segmentfault.com/a/1190000007282789#articleHeader7) 章节中, 我们已经简单地介绍了一下 NioEventLoopGroup 的初始化过程, 这里再回顾一下:
@@ -115,7 +115,7 @@ b.group(bossGroup, workerGroup)
 ## NioEventLoop
 NioEventLoop 继承于 SingleThreadEventLoop, 而 SingleThreadEventLoop 又继承于 SingleThreadEventExecutor. SingleThreadEventExecutor 是 Netty 中对本地线程的抽象, 它内部有一个 Thread thread 属性, 存储了一个本地 Java 线程. 因此我们可以认为, 一个 NioEventLoop 其实和一个特定的线程绑定, 并且在其生命周期内, 绑定的线程都不会再改变.
 ### NioEventLoop 类层次结构
-![Alt text](./NioEventLoop.png)
+![Alt text](NioEventLoop.png)
 NioEventLoop 的类层次结构图还是比较复杂的, 不过我们只需要关注几个重要的点即可. 首先 NioEventLoop 的继承链如下:
 ```
 NioEventLoop -> SingleThreadEventLoop -> SingleThreadEventExecutor -> AbstractScheduledEventExecutor

@@ -213,9 +213,9 @@ public DefaultChannelPipeline(AbstractChannel channel) {
 我们调用 DefaultChannelPipeline 的构造器, 传入了一个 channel, 而这个 channel 其实就是我们实例化的 NioSocketChannel, DefaultChannelPipeline 会将这个 NioSocketChannel 对象保存在channel 字段中. DefaultChannelPipeline 中, 还有两个特殊的字段, 即 head 和 tail, 而这两个字段是一个双向链表的头和尾. 其实在 DefaultChannelPipeline 中, 维护了一个以 AbstractChannelHandlerContext 为节点的双向链表, 这个链表是 Netty 实现 Pipeline 机制的关键. 关于 DefaultChannelPipeline 中的双向链表以及它所起的作用, 我在这里暂时不表, 在 **Netty 源码分析之 二 贯穿Netty 的大动脉 ── ChannelPipeline** 中会有详细的分析.
 
 HeadContext 的继承层次结构如下所示:
-![Alt text](./HeadContext.png)
+![Alt text](HeadContext.png)
 TailContext 的继承层次结构如下所示:
-![Alt text](./TailContext.png)
+![Alt text](TailContext.png)
 
 我们可以看到, 链表中 head 是一个 **ChannelOutboundHandler**, 而 tail 则是一个 **ChannelInboundHandler**.
 接着看一下 HeadContext 的构造器:
@@ -389,11 +389,11 @@ public abstract class ChannelInitializer<C extends Channel> extends ChannelInbou
 ChannelInitializer 是一个抽象类, 它有一个抽象的方法 initChannel, 我们正是实现了这个方法, 并在这个方法中添加的自定义的 handler 的. 那么 initChannel 是哪里被调用的呢? 答案是 ChannelInitializer.channelRegistered 方法中. 
 我们来关注一下 channelRegistered 方法. 从上面的源码中, 我们可以看到, 在 channelRegistered 方法中, 会调用 initChannel 方法, 将自定义的 handler 添加到 ChannelPipeline 中, 然后调用 ctx.pipeline().remove(this) 将自己从 ChannelPipeline 中删除. 上面的分析过程, 可以用如下图片展示:
 一开始, ChannelPipeline 中只有三个 handler, head, tail 和我们添加的 ChannelInitializer.
-![Alt text](./1477130291691.png)
+![Alt text](1477130291691.png)
 接着 initChannel 方法调用后, 添加了自定义的 handler:
-![Alt text](./1477130295919.png)
+![Alt text](1477130295919.png)
 最后将 ChannelInitializer 删除:
-![Alt text](./1477130299722.png)
+![Alt text](1477130299722.png)
 
 分析到这里, 我们已经简单了解了自定义的 handler 是如何添加到 ChannelPipeline 中的, 不过限于主题与篇幅的原因, 我没有在这里详细展开 ChannelPipeline 的底层机制, 我打算在下一篇 **Netty 源码分析之 二 贯穿Netty 的大动脉 ── ChannelPipeline** 中对这个问题进行深入的探讨.
 
