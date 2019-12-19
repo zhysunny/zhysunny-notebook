@@ -1,4 +1,4 @@
-# 序列3-Producer-Java NIO
+# 序列03-Producer-Java NIO
 
 在上一篇我们分析了Metadata的更新机制，其中涉及到一个问题，就是Sender如何跟服务器通信，也就是网络层。同很多Java项目一样，Kafka client的网络层也是用的Java NIO，然后在上面做了一层封装。
 
