@@ -136,7 +136,9 @@ synchronized void setB() throws Exception{
 ### 总结
 
 synchronized：可重入锁；非公平锁；独占锁
+
 ReentrantLock：默认非公平锁，构造函数可以设置；可重入锁
+
 ReentrantReadWriteLock：默认非公平锁，构造函数可以设置；可重入锁；遵循获取写锁、获取读锁再释放写锁的次序，写锁能够降级成为读锁
 
 ## 锁的使用

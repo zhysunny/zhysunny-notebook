@@ -15,7 +15,7 @@ yongshun
 
 web管理后台框架
 https://github.com/almasaeed2010/AdminLTE 基于 Bootstrap 3.x 的免费的后台 UI 框架。
-https://github.com/PanJiaChen/vue-element-admin 基于 vue2.0 和 Eelement 的控制面板 UI 框架。
+https://github.com/PanJiaChen/vue-element-admin 基于 vue2.0 和 Element 的控制面板 UI 框架。
 https://github.com/tabler/tabler 构建在 BootStrap 4 之上的免费的 HTML 控制面板框架
 https://github.com/puikinsh/gentelella 基于 Bootstarp 的免费的后台控制面板。
 https://github.com/akveo/ngx-admin 基于 Angular 2, Bootstrap 4 和 Webpack 的后台管理面板框架。
