@@ -85,30 +85,28 @@ newCachedThreadPool,是一种线程数量不定的线程池，并且其最大线
 
 ## 线程池工作队列
 
-### BlockingQueue 阻塞队列
-
-#### ArrayBlockingQueue 数组型阻塞队列
+### ArrayBlockingQueue 数组型阻塞队列
 
 初始化一定容量的数组
 使用一个重入锁，默认使用非公平锁，入队和出队共用一个锁，互斥
 是有界设计，如果容量满无法继续添加元素直至有元素被移除
 使用时开辟一段连续的内存，如果初始化容量过大容易造成资源浪费，过小易添加失败
 
-#### LinkedBlockingQueue 链表型阻塞队列
+### LinkedBlockingQueue 链表型阻塞队列
 
 内部使用节点关联，会产生多一点内存占用 
 使用两个重入锁分别控制元素的入队和出队，用Condition进行线程间的唤醒和等待
 有边界的，在默认构造方法中容量是Integer.MAX_VALUE
 非连续性内存空间
 
-#### DelayQueue 延时队列
+### DelayQueue 延时队列
 
 无边界设计
 添加（put）不阻塞，移除阻塞
 元素都有一个过期时间
 取元素只有过期的才会被取出
 
-#### SynchronousQueue 同步队列
+### SynchronousQueue 同步队列
 
 内部容量是0
 每次删除操作都要等待插入操作
@@ -116,7 +114,63 @@ newCachedThreadPool,是一种线程数量不定的线程池，并且其最大线
 一个元素，一旦有了插入线程和移除线程，那么很快由插入线程移交给移除线程，这个容器相当于通道，本身不存储元素
 在多任务队列，是最快的处理任务方式。
 
-#### PriorityBlockingQueue 优先阻塞队列
+### PriorityBlockingQueue 优先阻塞队列
 
 无边界设计，但容量实际是依靠系统资源影响
 添加元素，如果超过1，则进入优先级排序
+
+## 线程池中的几种重要的参数及流程说明
+
+### 参数
+
+corePoolSize ：核心线程数量
+
+maximumPoolSize ：线程最大线程数
+
+workQueue ：阻塞队列，存储等待执行的任务 很重要 会对线程池运行产生重大影响
+
+keepAliveTime ：线程没有任务时最多保持多久时间终止
+
+unit ：keepAliveTime的时间单位
+
+threadFactory ：线程工厂，用来创建线程
+
+rejectHandler ：当拒绝处理任务时的策略
+
+### 方法
+
+execute（）：提交任务，交给线程池执行
+
+submit（）：提交任务，能够返回执行结果 execute + Future
+
+shutdown（）：关闭线程池，等待任务都执行完
+
+shutdownNow（）：关闭线程池，不等待任务执行完
+
+getTaskCount（）：线程池已执行和未执行的任务总数
+
+getCompletedTaskCount（）：已完成的任务数量
+
+getPoolSize（）：线程池当前的线程数量
+
+getActiveCount（）：当前线程池中正在执行任务的线程数量
+
+### 线程池 - Executor框架接口
+
+Executors.newCachedThreadPool : 可缓存线程池，超过需要会回收多余线程，线程不足会创建新线程
+
+Executors.newFixedThreadPool ：定长线程池，超出线程等待
+
+Executors.newScheduledThreadPool ：定长线程池，支持定时，周期性任务执行
+
+Executors.newSingleThreadExecutor ：单线程线程池，按照指定任务顺序执行
+
+### 线程池 - 合理配置
+
+cpu密集型任务，就需要尽量压榨CPU，参考值设为NCPU+1
+
+IO密集型任务，参考值设为2*NCPU
+
+### 线程池特点
+
+线程池的使用主要是同用存在线程，减少对象创建消亡，有效线程最大并发数，避免过多资源竞争，避免阻塞，性能较好
