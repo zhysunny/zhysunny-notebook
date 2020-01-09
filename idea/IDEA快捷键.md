@@ -33,8 +33,8 @@
     * idea Ctrl+U
     * eclipse Ctrl+Alt+M(手动设置)
 * 如果想查看该文件在project中的位置
-    * idea Alt+F1 =>Project View =>Prject 简化的操作是Alt+1
-    * eclipse Alt+F1 =>Project View =>Prject 简化的操作是Alt+1
+    * idea Alt+F1 =>Project View =>Project 简化的操作是Alt+1
+    * eclipse Alt+F1 =>Project View =>Project 简化的操作是Alt+1
 * 回到上一次编辑的地方 ： 
     * idea Ctrl+Shift+backspace
     * eclipse Ctrl+Q
