@@ -27,7 +27,7 @@ public class KafkaProducer<K, V> implements Producer<K, V> {
 ### 基本思路
 从上图我们可以看出，异步发送的基本思路就是：send的时候，KafkaProducer把消息放到本地的消息队列RecordAccumulator，然后一个后台线程Sender不断循环，把消息发给Kafka集群。
 
-要实现这个，还得有一个前提条件：就是KafkaProducer/Sender都需要获取集群的配置信息Metadata。所谓Metadata，也就是在上一篇所讲的，Topic/Partion与broker的映射关系：每一个Topic的每一个Partion，得知道其对应的broker列表是什么，其中leader是谁，follower是谁。
+要实现这个，还得有一个前提条件：就是KafkaProducer/Sender都需要获取集群的配置信息Metadata。所谓Metadata，也就是在上一篇所讲的，Topic/Partition与broker的映射关系：每一个Topic的每一个Partition，得知道其对应的broker列表是什么，其中leader是谁，follower是谁。
 
 ### 2个数据流
 所以在上图中，有2个数据流：
@@ -78,7 +78,7 @@ public final class Metadata {
 public final class Cluster {
 ...
     private final List<Node> nodes;   //Node也就是Broker
-    private final Map<TopicPartition, PartitionInfo> partitionsByTopicPartition;  //Topic/Partion和broker list的映射关系
+    private final Map<TopicPartition, PartitionInfo> partitionsByTopicPartition;  //Topic/Partition和broker list的映射关系
     private final Map<String, List<PartitionInfo>> partitionsByTopic;
     private final Map<String, List<PartitionInfo>> availablePartitionsByTopic;
     private final Map<Integer, List<PartitionInfo>> partitionsByNode;
