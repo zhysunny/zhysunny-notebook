@@ -6,7 +6,7 @@
 
 ![在这里插入图片描述](./截图/3-1.png)
 
-可以看到，Kafka client基于Java NIO封装了一个网络层，这个网络层最上层的接口是KakfaClient。其层次关系如下： 
+可以看到，Kafka client基于Java NIO封装了一个网络层，这个网络层最上层的接口是KafkaClient。其层次关系如下： 
 
 ![在这里插入图片描述](./截图/3-2.png)
 
@@ -62,17 +62,17 @@ SelectionKey也是Selector和Channel之间的关联，通过SelectionKey可以�
 
 非阻塞IO： read/write，没有数据，立马返回，轮询
 
-IO复用：read/write一次都只能监听一个socket，但对于服务器来讲，有成千上完个socket连接，如何用一个函数，可以监听所有的socket上面的读写事件呢？这就是IO复用模型，对应linux上面，就是select/poll/epoll3种技术。
+IO复用：read/write一次都只能监听一个socket，但对于服务器来讲，有成千上万个socket连接，如何用一个函数，可以监听所有的socket上面的读写事件呢？这就是IO复用模型，对应linux上面，就是select/poll/epoll3种技术。
 
 异步IO：linux上没有，windows上对应的是IOCP。
 
-### Reactor模式 vs. Preactor模式
+### Reactor模式 vs. Proactor模式
 
 相信很多人都听说过网络IO的2种设计模式，关于这2种模式的具体阐述，可以自行google之。
 
 在此处，只想对这2种模式做一个“最通俗的解释“：
 
-Reactor模式：主动模式，所谓主动，是指应用程序不断去轮询，问操作系统，IO是否就绪。Linux下的select/poll/epooll就属于主动模式，需要应用程序中有个循环，一直去poll。 在这种模式下，实际的IO操作还是应用程序做的。
+Reactor模式：主动模式，所谓主动，是指应用程序不断去轮询，问操作系统，IO是否就绪。Linux下的select/poll/epoll就属于主动模式，需要应用程序中有个循环，一直去poll。 在这种模式下，实际的IO操作还是应用程序做的。
 
 Proactor模式：被动模式，你把read/write全部交给操作系统，实际的IO操作由操作系统完成，完成之后，再callback你的应用程序。Windows下的IOCP就属于这种模式，再比如C++ Boost中的Asio库，就是典型的Proactor模式。
 
@@ -261,7 +261,7 @@ for( ; ; )
 ### connect事件的取消
 
 ```
-//在上面的poll函数中，connect事件就绪，也就是指connect连接完成，连接简历
+//在上面的poll函数中，connect事件就绪，也就是指connect连接完成，连接建立
  if (key.isConnectable()) {  //有连接事件
        channel.finishConnect(); 
                         ...

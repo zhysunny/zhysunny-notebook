@@ -153,7 +153,7 @@ public class PartitionInfo {
 ```
 
 总结：从上面代码可以看出，producer wait metadata的时候，有2个条件：
-（1） while (metadata.fetch().partitionsForTopic(topic) == null)
+（1）while (metadata.fetch().partitionsForTopic(topic) == null)
 （2）while (this.version <= lastVersion)
 
 有wait就会有notify，notify在Sender更新Metadata的时候发出。
@@ -382,9 +382,9 @@ public synchronized void failedUpdate(long now) {
 (1)周期性的更新: 每隔一段时间更新一次，这个通过 Metadata的lastRefreshMs, lastSuccessfulRefreshMs 这2个字段来实现
 
 对应的ProducerConfig配置项为：
-metadata.max.age.ms //缺省300000，即10分钟1次
+metadata.max.age.ms //缺省5 * 60 * 1000，即5分钟1次
 
-(2) 失效检测，强制更新：检查到metadata失效以后，调用metadata.requestUpdate()强制更新。 requestUpdate()函数里面其实什么都没做，就是把needUpdate置成了false
+(2) 失效检测，强制更新：检查到metadata失效以后，调用metadata.requestUpdate()强制更新。 requestUpdate()函数里面其实什么都没做，就是把needUpdate置成了true
 
 每次poll的时候，都检查这2种更新机制，达到了，就触发更新。
 
