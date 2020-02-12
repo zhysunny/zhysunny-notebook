@@ -160,7 +160,7 @@ if (channel.ready() && key.isWritable()) {
 }
 ```
 
-同样，在接收的时候，channel.read(Bytebuffer b)，一个response也可能要read多次，才能完全接收。所以就有了上面的while循环代码：
+同样，在接收的时候，channel.read(ByteBuffer b)，一个response也可能要read多次，才能完全接收。所以就有了上面的while循环代码：
 
 ```
 if (channel.ready() && key.isReadable() && !hasStagedReceive(channel)) {
