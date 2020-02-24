@@ -38,7 +38,7 @@ http://stackoverflow.com/questions/25896109/in-apache-kafka-why-cant-there-be-mo
 给定一个topic，有4个partition: p0, p1, p2, p3， 一个group有3个consumer: c0, c1, c2。那么，如果按范围分配策略，分配结果是： 
 c0: p0, c1: p1, c2: p2, p3 
 如果按轮询分配策略： 
-c0: p1, p3, c1: p1, c2: p2
+c0: p0, p3, c1: p1, c2: p2
 
 那这整个分配过程是如何进行的呢？见下图所示： 
 

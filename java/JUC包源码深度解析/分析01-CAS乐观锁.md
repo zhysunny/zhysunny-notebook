@@ -15,7 +15,7 @@
 2.CAS可能失败，此时需要把数据重新读取出来，重新修改，重新比较版本号和CAS，直到CAS成功。这也就是所谓的Conditional Update，循环重试。
 ```
 ## 乐观锁的几种具体实现
-乐观锁的思想，无论是在Java多线程编程（当然也包括其他语言），还是Mysql数据库操作中（当然也包含其他Nosql数据库），都有应用。下面介绍几种常见应用： AtomicInteger, AtomicStampedReference, Mysql乐视锁。
+乐观锁的思想，无论是在Java多线程编程（当然也包括其他语言），还是Mysql数据库操作中（当然也包含其他Nosql数据库），都有应用。下面介绍几种常见应用： AtomicInteger, AtomicStampedReference, Mysql乐观锁。
 
 ## AtomicInteger/CAS
 以下代码展示了JUC包的AtomicInteger的++, - - 操作的乐视锁实现
