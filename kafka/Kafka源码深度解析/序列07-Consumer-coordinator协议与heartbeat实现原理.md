@@ -9,14 +9,10 @@
 ### 去Zookeeper依赖
 在0.9以前的client api中，consumer是要依赖Zookeeper的。因为同一个consumer group中的所有consumer需要进行协同，进行下面所讲的rebalance。
 
-但是因为zookeeper的“herd”与“split brain”，导致一个group里面，不同的consumer拥有了同一个partition，进而会引起消息的消费错乱。为此，在0.9中，不再用zookeeper，而是Kafka集群本身来进行consumer之间的同步。下面引自kafka设计的原文：
-
-https://cwiki.apache.org/confluence/display/KAFKA/Kafka+0.9+Consumer+Rewrite+Design#Kafka0.9ConsumerRewriteDesign-Failuredetectionprotocol
-
-https://cwiki.apache.org/confluence/display/KAFKA/Consumer+Client+Re-Design
+但是因为zookeeper的“herd”与“split brain”，导致一个group里面，不同的consumer拥有了同一个partition，进而会引起消息的消费错乱。为此，在0.9中，不再用zookeeper，而是Kafka集群本身来进行consumer之间的同步。
 
 ```
-The current version of the high level consumer suffers from herd and split brain problems, where multiple consumers in a group run a distributed algorithm to agree on the same partition ownership decision. Due to different view of the zookeeper data, they run into conflicts that makes the rebalancing attempt fail. But there is no way for a consumer to verify if a rebalancing operation completed successfully on the entire group. This also leads to some potential bugs in the rebalancing logic, for example, https://issues.apache.org/jira/browse/KAFKA-242
+当前版本的高级消费者遇到了羊群和分裂大脑的问题，其中一个组中的多个消费者运行一个分布式算法来同意相同的分区所有权决策。由于动物园管理员数据的不同视图，它们会遇到冲突，从而导致重新平衡的尝试失败。但是使用者无法验证重新平衡操作是否在整个组上成功完成。这也导致了重新平衡逻辑中的一些潜在错误
 ```
 
 ### 为什么在一个group内部，1个parition只能被1个consumer拥有？
@@ -26,18 +22,16 @@ The current version of the high level consumer suffers from herd and split brain
 
 比如对于1个topic，有4个partition，那么在一个group内部，最多只能有4个consumer。你加入更多的consumer，它们也不会分配到partition。
 
-那为什么要做这个限制呢？原因在下面这篇文章中，有详细阐述： 
-http://stackoverflow.com/questions/25896109/in-apache-kafka-why-cant-there-be-more-consumer-instances-than-partitions
-
 简单来说，一个是因为这样做就没办法保证同1个partition消息的时序；另1方面，Kafka的服务器，是每个topic的每个partition的每个consumer group对应1个offset，即(topic, partition, consumer_group_id) – offset。如果多个consumer并行消费同1个partition，那offset的confirm就会出问题。
 
 知道了这个前提，下面我们就来分析partition的分配问题。
 
 ### coordinator协议 / partition分配问题
 问题的提出： 
-给定一个topic，有4个partition: p0, p1, p2, p3， 一个group有3个consumer: c0, c1, c2。那么，如果按范围分配策略，分配结果是： 
+给定一个topic，有4个partition: p0, p1, p2, p3， 一个group有3个consumer: c0, c1, c2。那么，
+如果按范围（range，默认）分配策略，分配结果是： 
 c0: p0, c1: p1, c2: p2, p3 
-如果按轮询分配策略： 
+如果按轮询（roundrobin）分配策略： 
 c0: p0, p3, c1: p1, c2: p2
 
 那这整个分配过程是如何进行的呢？见下图所示： 
