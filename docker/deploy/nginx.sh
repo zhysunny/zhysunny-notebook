@@ -1,9 +1,5 @@
-# Author      : 章云
-# Date        : 2020/6/15 23:47
-# Description : nginx安装镜像
-
 FROM centos:8.1.1911
-MAINTAINER zhangyun
+MAINTAINER zhysunny
 WORKDIR /opt/nginx
 
 RUN rm -rf /etc/yum.repos.d/*
