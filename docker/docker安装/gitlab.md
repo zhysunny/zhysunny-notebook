@@ -35,3 +35,4 @@ services:
         - /opt/gitlab/data:/var/opt/gitlab
         - /opt/gitlab/logs:/var/log/gitlab
 ```
+docker-compose -f gitlab.yml up -d
