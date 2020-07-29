@@ -1,0 +1,15 @@
+version: '3'
+services:
+  redis:
+    hostname: redis
+    image: redis:5.0.4
+    container_name: redis
+    restart: always
+    command: redis-server --requirepass 123456
+    environment:
+    - TZ=Asia/Shanghai
+    volumes:
+    - /etc/localtime:/etc/localtime:ro # 设置容器时区与宿主机保持一致
+    - /opt/redis/data:/data
+    ports:
+    - "6379:6379"
