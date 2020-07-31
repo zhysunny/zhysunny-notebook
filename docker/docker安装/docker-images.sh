@@ -10,3 +10,4 @@ docker pull centos:7
 docker pull redis:5.0.4
 docker pull mysql:5.7
 docker pull gitlab/gitlab-ce:11.9.9-ce.0
+docker pull kong:1.1.0
