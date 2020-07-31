@@ -1,0 +1,20 @@
+version: '3'
+services:
+  gitlab:
+    hostname: gitlab
+    image: gitlab/gitlab-ce:11.9.9-ce.0
+    container_name: gitlab
+    restart: always
+    environment:
+    - TZ=Asia/Shanghai
+    ports:
+    - '8080:80'
+    - '8443:443'
+    - '8022:22'
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /opt/gitlab/config:/etc/gitlab
+    - /opt/gitlab/logs:/var/log/gitlab
+    - /opt/gitlab/data:/var/opt/gitlab
+    network_mode: "bridge"
+    privileged: true
