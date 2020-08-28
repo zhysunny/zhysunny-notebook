@@ -8,9 +8,9 @@ services:
     environment:
     - TZ=Asia/Shanghai
     ports:
-    - '8080:80'
-    - '8443:443'
-    - '8022:22'
+    - '1080:80'
+    - '1443:443'
+    - '1022:22'
     volumes:
     - /etc/localtime:/etc/localtime:ro
     - /opt/gitlab/config:/etc/gitlab
