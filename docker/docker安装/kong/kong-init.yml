@@ -57,6 +57,8 @@ services:
     networks:
     - kong-net
     environment:
+      KONG_PREFIX: /opt/kong/kong/workdir
+      KONG_LUA_PACKAGE_PATH: /opt/kong/kong/custom-plugin/?.lua;/opt/kong/kong/custom-plugin/?/init.lua;
       KONG_DATABASE: postgres
       KONG_PG_HOST: kong-database
       KONG_PG_PASSWORD: 123456
