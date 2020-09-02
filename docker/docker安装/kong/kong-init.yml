@@ -1,8 +1,9 @@
-version: "3"
+version: "3.5"
 
 networks:
   kong-net:
     driver: bridge
+    name: kong-net
 
 services:
 
@@ -48,41 +49,6 @@ services:
     - kong-database
 
   #######################################
-  # Kong: The API Gateway
-  #######################################
-  kong:
-    image: kong:1.1.0
-    container_name: kong
-    restart: always
-    networks:
-    - kong-net
-    environment:
-      KONG_PREFIX: /opt/kong/kong/workdir
-      KONG_LUA_PACKAGE_PATH: /opt/kong/kong/custom-plugin/?.lua;/opt/kong/kong/custom-plugin/?/init.lua;
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: kong-database
-      KONG_PG_PASSWORD: 123456
-      KONG_PROXY_LISTEN: 0.0.0.0:8080
-      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001
-    depends_on:
-    - kong-migration
-    links:
-    - kong-database
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://kong:8001"]
-      interval: 5s
-      timeout: 2s
-      retries: 15
-    ports:
-    - "8001:8001"
-    - "8080:8080"
-    - "8443:8443"
-    volumes:
-    - /etc/localtime:/etc/localtime:ro
-    - /opt/kong/kong:/opt/kong/kong
-
-  #######################################
   # Konga database prepare
   #######################################
   konga-prepare:
@@ -118,7 +84,6 @@ services:
     links:
     - kong-database
     depends_on:
-    - kong
     - konga-prepare
     ports:
     - "1337:1337"

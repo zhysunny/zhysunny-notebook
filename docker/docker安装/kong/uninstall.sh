@@ -10,7 +10,5 @@ docker stop konga
 docker rm konga
 docker stop kong-migration
 docker rm kong-migration
-docker stop kong
-docker rm kong
 docker stop kong-database
 docker rm kong-database
