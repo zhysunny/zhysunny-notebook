@@ -18,4 +18,4 @@ services:
     - 3306:3306
     volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /opt/mysql/data:/var/lib/mysql
+#    - /opt/mysql/data:/var/lib/mysql

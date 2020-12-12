@@ -13,8 +13,8 @@ services:
     - '1022:22'
     volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /opt/gitlab/config:/etc/gitlab
-    - /opt/gitlab/logs:/var/log/gitlab
-    - /opt/gitlab/data:/var/opt/gitlab
+#    - /opt/gitlab/config:/etc/gitlab
+#    - /opt/gitlab/logs:/var/log/gitlab
+#    - /opt/gitlab/data:/var/opt/gitlab
     network_mode: "bridge"
     privileged: true
