@@ -1,0 +1,14 @@
+version: '3'
+services:
+  zookeeper:
+    hostname: zookeeper
+    image: zookeeper:3.4.14
+    container_name: zookeeper
+    restart: always
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zookeeper:2888:3888
+    volumes:
+    - /etc/localtime:/etc/localtime:ro # 设置容器时区与宿主机保持一致
+    ports:
+    - "2181:2181"
