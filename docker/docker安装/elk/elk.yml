@@ -1,0 +1,69 @@
+version: '3'
+services:
+  es-master:
+    container_name: es-master
+    hostname: es-master
+    image: elasticsearch:7.5.1
+    restart: always
+    ports:
+    - 9200:9200
+    - 9300:9300
+    volumes:
+    - /opt/volume/elasticsearch/master/conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    - /opt/volume/elasticsearch/master/data:/usr/share/elasticsearch/data
+    - /opt/volume/elasticsearch/master/logs:/usr/share/elasticsearch/logs
+    - /etc/localtime:/etc/localtime:ro
+    environment:
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - TZ=Asia/Shanghai
+  es-slave1:
+    container_name: es-slave1
+    image: elasticsearch:7.5.1
+    restart: always
+    ports:
+    - 9201:9200
+    - 9301:9300
+    volumes:
+    - /opt/volume/elasticsearch/slave1/conf/es-slave1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    - /opt/volume/elasticsearch/slave1/data:/usr/share/elasticsearch/data
+    - /opt/volume/elasticsearch/slave1/logs:/usr/share/elasticsearch/logs
+    - /etc/localtime:/etc/localtime:ro
+    environment:
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - TZ=Asia/Shanghai
+  kibana:
+    container_name: kibana
+    hostname: kibana
+    image: kibana:7.5.1
+    restart: always
+    ports:
+    - 5601:5601
+    volumes:
+    - /opt/volume/kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
+    - /etc/localtime:/etc/localtime:ro
+    environment:
+    - elasticsearch.hosts=http://es-master:9200
+    - TZ=Asia/Shanghai
+    depends_on:
+    - es-master
+    - es-slave1
+  logstash:
+    container_name: logstash
+    hostname: logstash
+    image: logstash:7.5.1
+    command: logstash -f /usr/share/logstash/conf/logstash-filebeat.conf
+    restart: always
+    volumes:
+    - /opt/volume/logstash/conf/logstash-filebeat.conf:/usr/share/logstash/conf/logstash-filebeat.conf
+    - /opt/volume/logstash/ssl:/usr/share/logstash/ssl
+    - /etc/localtime:/etc/localtime:ro
+    environment:
+    - elasticsearch.hosts=http://es-master:9200
+    # 解决logstash监控连接报错
+    - xpack.monitoring.elasticsearch.hosts=http://es-master:9200
+    - TZ=Asia/Shanghai
+    ports:
+    - 5044:5044
+    depends_on:
+    - es-master
+    - es-slave1
