@@ -52,7 +52,7 @@ services:
   # Konga database prepare
   #######################################
   konga-prepare:
-    image: pantsel/konga:0.14.9
+    image: pantsel/konga:0.14.1
     container_name: konga-prepare
     command: "-c prepare -a postgres -u postgresql://kong:123456@kong-database:5432/konga"
     networks:
@@ -72,7 +72,7 @@ services:
   # Konga: Kong GUI
   #######################################
   konga:
-    image: pantsel/konga:0.14.9
+    image: pantsel/konga:0.14.1
     container_name: konga
     restart: always
     networks:
