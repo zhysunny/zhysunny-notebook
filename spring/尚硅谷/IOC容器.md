@@ -8,5 +8,5 @@
 * xml配置文件：通过发射的方式加载对象，解决代码的频繁改动
 
 创建对象的接口
-* BeanFactory
-* ApplicationContext
+* BeanFactory：懒加载，最顶端的工厂接口
+* ApplicationContext：饿汉式，适合开发人员使用
