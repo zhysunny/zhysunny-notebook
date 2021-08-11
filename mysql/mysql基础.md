@@ -10,12 +10,12 @@
 
 常量、表达式、函数、别名，去重
 
-* +号的作用
-和java不一样，mysql的+号只能作为运算符
-select 100+90;   190，运算符
-select '100'+90;  190，字符串会尝试转数值再运算
-select 'john'+90;  90，字符串转数值失败默认为0
-select null+90;  null，有一个值为null，结果就是null，可以使用ifnull(column, 0)解决
+#### +号的作用
+* 和java不一样，mysql的+号只能作为运算符
+* select 100+90;   190，运算符
+* select '100'+90;  190，字符串会尝试转数值再运算
+* select 'john'+90;  90，字符串转数值失败默认为0
+* **select null+90;  null，有一个值为null，结果就是null，可以使用ifnull(column, 0)解决**
 
 ### where
 
@@ -56,6 +56,7 @@ year,month,day,hour,minute,sencond：取日期中的部分
 monthname：英文月份
 str_to_date：字符串转日期
 date_format：日期转字符串
+datediff：计算日期相差多少天
 
 |格式符|功能|
 |---|---|
@@ -83,3 +84,108 @@ when 常量3或条件3 then expr3;
 else expr3;
 end
 
+### 分组函数
+
+常见：sum、avg、max、min、count，忽略null值
+分组前条件筛选使用where，分组后条件筛选使用having，优先使用分组前
+group by支持单个字段、多个字段、表达式、函数、别名
+
+### 事务
+
+* 事务并发的问题：脏读，不可重复读，幻读
+* 事务隔离级别：
+* 事务回滚：了解savepoint
+
+### 视图
+
+了解视图
+
+### 存储过程
+
+自定义变量
+set @name = 'aaa';
+set @age := 20;
+select @sex := 0;
+
+select @name;
+select @age;
+select @sex;
+
+局部变量，作用于begin end中间，一般用于存储过程
+DECLARE m INT DEFAULT 1;
+DECLARE n INT DEFAULT 2;
+DECLARE sum INT;
+set sum = m + n
+select sum;
+
+select 值 into 变量名 from 表
+
+创建存储过程
+CREATE PROCEDURE 存储过程名(参数列表)
+BEGIN
+    存储过程体
+END
+
+参数列表包含：参数模式 参数名 参数类型
+参数模式
+in:参数作为输入
+out:参数作为输出
+inout:参数既可以作为输入，也可以作为输出
+
+### 函数
+
+CREATE FUNCTION 函数名(参数列表) RETURNS 返回类型
+BEGIN
+		函数体
+END
+
+参数列表包含：参数名 参数类型
+
+### 流程控制
+
+if：if(conditions,expr1,expr2)
+
+case (表达式)?
+when 条件1 then 值1
+when 条件2 then 值2
+when 条件3 then 值3
+else 值4
+end;
+
+只能在 begin end中
+case (表达式)?
+when 条件1 then 语句1;
+when 条件2 then 语句2;
+when 条件3 then 语句3;
+else 语句4;
+end case;
+
+只能在 begin end中
+if 条件1 then 语句1;
+elseif 条件2 then 语句2;
+else 语句3;
+end if;
+
+循环语句
+while、loop、repeat
+iterate: 类似于continue
+leave: 类似于break
+
+while 条件 do
+    循环体
+end while;
+
+iterate和leave需要加标签的循环语句
+标签名: while 条件 do
+    循环体
+end while 标签名;
+
+模拟死循环
+loop
+    循环体
+end loop;
+
+repeat
+    循环体
+until 结束循环的条件
+end repeat;
