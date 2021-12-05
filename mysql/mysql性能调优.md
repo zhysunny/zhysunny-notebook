@@ -73,3 +73,29 @@ LEFT JOIN dept_emp on departments.dept_no = dept_emp.dept_no
     * DERIVED：衍生表（from）
     * UNION：union后的表被标记；union后的from包含子查询，外层标记为DERIVED
     * UNION RESULT：从union表获取的select结果
+* type(访问类型排列)：system > const > eq_ref > ref > range > index > ALL
+    * system: 表中只有一条记录
+    * const: 通过索引一次就能找到，const用于比较主键或者unique索引，因为只匹配一条记录
+    * eq_ref: 唯一索引扫描，一一对应，常用于主键关联查询
+    * ref: 非唯一索引扫描，返回单个值的所有行
+    * range: 根据索引做范围查询
+    * index: 全索引扫描
+    * ALL: 全表扫描
+* possible_keys：显示表中当前的主键或者索引字段，查询未必使用到(实际性能优化用处不大)
+* key：查询实际使用到的索引或者主键，对于覆盖索引，该索引仅存在key列表中
+* key_len：索引字段最大可能的长度，不是实际长度，即key_len来源于表字段定义，数字越小越好
+* ref：显示索引的那一列被使用，尽可能是常量
+* rows：根据表统计信息及索引选用情况，大致估算查询结果需要读取的行数，越少越好
+* extra：拓展字段
+    * Using filesort：mysql对数据使用外部的索引排序，不是表中索引，mysql无法使用索引的排序称为文件排序
+    * Using temporary：使用临时表保存中间结果，mysql对查询结果排序使用临时表，常见于order by和group by
+    * Using index：相应select操作使用了覆盖索引，避免表数据读取；如果有Using where，表明索引被用来执行索引键值的查找，反之索引用来读取而非查找
+    * Using where：使用了where语句
+    * Using join buffer：使用了连接缓存
+    * impossible where：无效的where，where的值总是false
+    * select tables optimized away：没有group by，基于索引优化max/min
+    * distinct：优化distinct，找到第一个值后不会再找相同的值
+
+## 索引优化总结
+
+* 组合索引中，如果按索引范围查找，后面的索引会失效，这种场景下范围查询的字段不建议创建索引
